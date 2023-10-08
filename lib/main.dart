@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final pageController = PageController(initialPage: 1);
+    final pageController = PageController(initialPage: 0);
 
     return MaterialApp(
       title: 'Flutter Demo',
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         body: PageView(
           controller: pageController,
-          children: [
+          children: const [
             Home(), 
             Actuators()
             ],
