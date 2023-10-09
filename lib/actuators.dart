@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Actuators extends StatefulWidget {
+  
   const Actuators({super.key});
 
   @override
@@ -8,31 +9,25 @@ class Actuators extends StatefulWidget {
 }
 
 class _ActuatorsState extends State<Actuators> {
+  List<bool> isToggled = [true,false];
+  bool isSwitched1 = false;
+  bool isSwitched2 = false;
+  bool isAuto = false;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    List<bool> isSelected = [true, false];
+    
+    
 
     return Container(
       width: screenWidth,
       height: screenHeight,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0x665ac18e),
-            Color(0x995ac18e),
-            Color(0xcc5ac18e),
-            Color(0xff5ac18e),
-          ],
-        ),
-      ),
+      color: Color.fromARGB(255, 210, 202, 175),
       child: Column(
         children: [
           //addt. info
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 25),
             child: Text(
               "Actuator Control",
@@ -56,7 +51,7 @@ class _ActuatorsState extends State<Actuators> {
               child: const Row(
                 children: [
                   Text(
-                    "Last feeding session: ",
+                    "Last feeding session:   ",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -66,7 +61,7 @@ class _ActuatorsState extends State<Actuators> {
                     width: 20,
                   ),
                   Text(
-                    "15 hrs ago",
+                    "15 hrs",
                     style: TextStyle(
                       fontSize: 14,
                     ),
@@ -100,7 +95,7 @@ class _ActuatorsState extends State<Actuators> {
                     width: 10,
                   ),
                   Text(
-                    "15 hrs ago",
+                    "15 hrs",
                     style: TextStyle(
                       fontSize: 14,
                     ),
@@ -110,31 +105,40 @@ class _ActuatorsState extends State<Actuators> {
             ),
           ),
           ToggleButtons(
+            
             constraints: BoxConstraints(minWidth: 90, minHeight: 40),
-            children: [Text("AUTO"), Text("MANUAL")], isSelected: isSelected,
-            onPressed: (int newIndex) {
-              
-              setState(() {
-                // looping through the list of booleans values
-                for (int index = 0; index < isSelected.length; index++) {
-                  // checking for the index value
-                  if (index == newIndex) {
-                    // one button is always set to true
-                    isSelected[index] = true;
-                  } else {
-                    // other two will be set to false and not selected
-                    isSelected[index] = false;
+            
+            
+              onPressed: (int newindex) {
+                setState(() {
+                  for(int index=0;index<isToggled.length;index++)
+                  {
+                    if(index==newindex)
+                    {
+                      isToggled[index]=true;
+                    }
+                    else{
+                      isToggled[index]=false;
+                    }
                   }
-                }
-              });
-            },
+                  if(newindex==1){
+                   
+                     isAuto==false;
+                   
+                  }
+                  
+                });
+              },
+              isSelected: isToggled,
+              children: [Text("AUTO"), Text("MANUAL")], 
+            
             selectedColor: Colors.white,
             // text color of not selected toggle
-            color: Colors.blue,
+            color: Colors.black,
             // fill color of selected toggle
-            fillColor: Colors.lightBlue.shade900,
+            fillColor: Color.fromARGB(255, 112, 112, 112),
             // when pressed, splash color is seen
-            splashColor: Colors.red,
+            splashColor: Colors.grey,
             // long press to identify highlight color
             highlightColor: Colors.orange,
             // if consistency is needed for all text style
@@ -151,7 +155,7 @@ class _ActuatorsState extends State<Actuators> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
+                  const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -174,17 +178,29 @@ class _ActuatorsState extends State<Actuators> {
                       Transform.scale(
                           scaleX: 1,
                           child: Switch(
-                              value: true,
+                            activeColor: Color.fromARGB(255, 112, 112, 112),
+                              value: isSwitched1,
                               // changes the state of the switch
-                              onChanged: (value) => setState(() => value))
+                              onChanged: isAuto? null:(value){
+                                setState(() {
+                                  isSwitched1 = value;
+                                });
+                              }
                           //
-                          ),
+                          ),),
                       Transform.scale(
                           scaleX: 1,
                           child: Switch(
-                              value: true,
+                            activeColor: Color.fromARGB(255, 112, 112, 112),
+                              value: isSwitched2,
                               // changes the state of the switch
-                              onChanged: (value) => setState(() => value))
+                              onChanged: isAuto? null:(value){
+                                setState(() {
+                                  isSwitched2 = value;
+                                });
+                              }
+                          //
+                          )
                           //
                           ),
                     ],

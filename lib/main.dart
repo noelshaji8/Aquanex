@@ -1,6 +1,7 @@
 import 'package:aquanex/actuators.dart';
 import 'package:flutter/material.dart';
 import 'package:aquanex/home.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,35 +16,48 @@ class MyApp extends StatelessWidget {
     final pageController = PageController(initialPage: 0);
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Aquanex',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 56, 193, 125)),
+      fontFamily: 'Poppins',
         useMaterial3: true,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () {
-                  //Logout function
-                },
-                icon: Icon(Icons.logout))
-          ],
-          foregroundColor: Colors.white,
-          backgroundColor: Color(0xaab5651d),
-          shadowColor: null,
-          title: const Text("Aquanex"),
-          centerTitle: true,
-        ),
-        body: PageView(
-          controller: pageController,
-          children: const [
-            Home(), 
-            Actuators()
+        backgroundColor:Color.fromARGB(255, 210, 202, 175),
+        resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    //Logout function
+                  },
+                  icon: Icon(Icons.logout))
             ],
-        ),
-      ),
-    );
+            foregroundColor: Colors.black,
+            backgroundColor: Color.fromARGB(255, 210, 202, 175),
+            shadowColor: null,
+            title: const Text("Aquanex"),
+            centerTitle: true,
+          ),
+          body: Column(children: [
+            SizedBox(height: 550,child: PageView(
+              controller: pageController,
+              children: const [
+                Home(),
+                Actuators(),
+                ],
+            ),)
+              ,
+            SmoothPageIndicator(controller: pageController, count: 2,
+            effect: SlideEffect(
+              
+              activeDotColor: Color.fromARGB(255, 112, 112, 112)
+            ),),
+
+
+          ],)
+            
+          ));
+    
   }
 }

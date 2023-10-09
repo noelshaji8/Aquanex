@@ -16,18 +16,7 @@ class _HomeState extends State<Home> {
     return Container(
         width: screenWidth,
         height: screenHeight,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0x665ac18e),
-              Color(0x995ac18e),
-              Color(0xcc5ac18e),
-              Color(0xff5ac18e),
-            ],
-          ),
-        ),
+        color: Color.fromARGB(255, 210, 202, 175),
         child: Column(
           children: [
             Padding(
@@ -185,20 +174,25 @@ class _HomeState extends State<Home> {
 
             //static info
 
-            Padding(padding: EdgeInsets.only(top: 100),
-            child: Container(
+            const Padding(
+              padding: EdgeInsets.only(top: 60),
               child: Column(
                 children: [
-                  Text("Optimum pH: 6.2 - 7.5"),
-                  Text("Optimum DO: 4 - 5 ppm"),
-                  Text("Optimum temp: 22 - 27"),
-                  Text("Optimum NH3: 0.0 - 0.5 ppm"),
+                  Text(
+                    "Optimum Values",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("pH: 6.2 - 7.5"),
+                  Text("DO: 4 - 5 ppm"),
+                  Text("temp: 22 - 27"),
+                  Text("NH3: 0.0 - 0.5 ppm"),
                 ],
               ),
-            ),)
+            ),
           ],
-        ),
-      );
-    
+        ));
   }
 }
