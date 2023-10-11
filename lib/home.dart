@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
     return Container(
         width: screenWidth,
         height: screenHeight,
-        color: Color.fromARGB(255, 210, 202, 175),
+        color: Color.fromARGB(0, 147, 197, 114),
         child: Column(
           children: [
             Padding(
@@ -46,7 +46,8 @@ class _HomeState extends State<Home> {
                             width: 150,
                             height: 80,
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              color: Color(0xbb93C572),
+                              border: Border.all(color: Color(0xbb93C572)),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             padding: const EdgeInsets.all(10),
@@ -77,7 +78,8 @@ class _HomeState extends State<Home> {
                             width: 150,
                             height: 80,
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              color: Color(0xbb93C572),
+                              border: Border.all(color: Color(0xbb93C572)),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             padding: const EdgeInsets.all(10),
@@ -112,7 +114,8 @@ class _HomeState extends State<Home> {
                           width: 150,
                           height: 80,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
+                            color: Color(0xbb93C572),
+                            border: Border.all(color: Color(0xbb93C572)),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           padding: const EdgeInsets.all(10),
@@ -143,7 +146,8 @@ class _HomeState extends State<Home> {
                           width: 150,
                           height: 80,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
+                            color: Color(0xbb93C572),
+                            border: Border.all(color: Color(0xbb93C572)),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           padding: const EdgeInsets.all(10),
@@ -176,21 +180,70 @@ class _HomeState extends State<Home> {
 
             const Padding(
               padding: EdgeInsets.only(top: 60),
-              child: Column(
-                children: [
-                  Text(
-                    "Optimum Values",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("pH: 6.2 - 7.5"),
-                  Text("DO: 4 - 5 ppm"),
-                  Text("temp: 22 - 27"),
-                  Text("NH3: 0.0 - 0.5 ppm"),
-                ],
-              ),
+              child: Column(children: [
+                Text(
+                  "Optimum Values",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                
+                Padding(
+                    padding: EdgeInsets.only(top: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "pH:",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              
+                              Text(
+                                "DO:",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                "Temp:",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                "NH3:",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ]),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Column(
+                          children: [
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "6.2 - 7.5",
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  
+                                  Text(
+                                    "4.0 - 5.0 ppm",
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  Text(
+                                "22 - 27 °C",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              Text(
+                                "0.0 - 0.5 ppm",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                                ])
+                          ],
+                        )
+                      ],
+                    )),
+                
+              ]),
             ),
           ],
         ));

@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
     final pageController = PageController(initialPage: 0);
 
     return MaterialApp(
+      color: Color(0xbb93C572),
       title: 'Aquanex',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
-        backgroundColor:Color.fromARGB(255, 210, 202, 175),
+        
         resizeToAvoidBottomInset: true,
           appBar: AppBar(
             actions: [
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
                   icon: Icon(Icons.logout))
             ],
             foregroundColor: Colors.black,
-            backgroundColor: Color.fromARGB(255, 210, 202, 175),
+            backgroundColor: Color(0xbb93C572),
             shadowColor: null,
             title: const Text("Aquanex"),
             centerTitle: true,
