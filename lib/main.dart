@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Aquanex',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        
       fontFamily: 'Poppins',
         useMaterial3: true,
       ),

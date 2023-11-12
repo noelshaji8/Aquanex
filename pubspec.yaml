@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   smooth_page_indicator: ^1.1.0
+  http: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -50,7 +51,7 @@ dev_dependencies:
   flutter_native_splash: ^2.3.1
   
 flutter_native_splash:
-  color: "#d2caaf"
+  color: "#ffffff"
   android_12:
     # The image parameter sets the splash screen icon image.  If this parameter is not specified,
     # the app's launcher icon will be used instead.
@@ -62,7 +63,7 @@ flutter_native_splash:
     
 
     # Splash screen background color.
-    color: "#d2caaf"
+    color: "#ffffff"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
