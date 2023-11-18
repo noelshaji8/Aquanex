@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'param_val.dart';
+import 'package:aquanex/services/noti.dart';
 import 'package:flutter/material.dart';
-import 'api_req.dart';
+import 'package:aquanex/services/param_val.dart';
+import 'package:aquanex/services/api_req.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,6 +13,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Future? data;
+
+  var myDouble;
+
   @override
   void initState() {
     super.initState();
@@ -20,12 +24,40 @@ class _HomeState extends State<Home> {
   }
 
   setUpTimedFetch() {
-    Timer.periodic(Duration(milliseconds: 5000), (timer) {
+    Timer.periodic(Duration(milliseconds: 5000), (timer) async {
       setState(() {
         data = ApiReq().fetchValues();
+
+        ApiReq().fetchValues().then((value) async {
+          print("value: $value");
+          print(value.runtimeType);
+
+          myDouble = double.tryParse(await value);
+        });
+
+        print("data: $data");
       });
+      try {
+        Notifications().showNotification(await myDouble,
+            title: "Temperature", body: "Threshold crossed");
+      } catch (e) {
+        print(e);
+      }
     });
   }
+
+  // notiTrigger(data)  {
+  //   try {
+  //     double doubleData = double.tryParse(data) ?? 0;
+  //     print("double: $doubleData");
+  //     if (doubleData > 28 || doubleData < 22) {
+  //       Notifications()
+  //           .showNotification(title: "Temperature", body: "Threshold crossed");
+  //     }
+  //   } catch (e) {
+  //     print("error is: $e");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -139,8 +171,6 @@ class _HomeState extends State<Home> {
                           ),
                           padding: const EdgeInsets.only(top: 7),
                           child: Column(
-                            
-                            
                             children: [
                               SizedBox(
                                   child: Text(
@@ -151,50 +181,10 @@ class _HomeState extends State<Home> {
                                 ),
                               )),
                               SizedBox(
-                                child: ParamVal(data: data,),
-                                // child: FutureBuilder(
-                                //   future: data,
-                                //   builder: (context, snapshot) {
-                                //     if (snapshot.connectionState ==
-                                //         ConnectionState.done) {
-                                //       return TextField(
-                                //         decoration: InputDecoration(border: InputBorder.none),
-                                //         textAlign: TextAlign.center,
-                                //         readOnly: true,
-                                //         style: TextStyle(
-                                //           fontWeight: FontWeight.bold,
-                                //           fontSize: 14,
-                                //         ),
-                                //         controller: TextEditingController(
-                                //             text: snapshot.data.toString()),
-                                //       );
-                                //     } else {
-                                //       return TextField(
-                                //         decoration: InputDecoration(
-                                //           border: InputBorder.none
-                                //         ),
-                                //         textAlign: TextAlign.center,
-                                //         readOnly: true,
-                                //         style: TextStyle(
-                                //           fontWeight: FontWeight.bold,
-                                //           fontSize: 14,
-                                //         ),
-                                //         controller: TextEditingController(
-                                //             text: ("...")),
-                                //       );
-                                //     }
-                                //   },
-                                // ),
-                                
-                                
+                                child: ParamVal(
+                                  data: data,
+                                ),
                               )
-
-                              // Text(
-                              //   "$updateUI()",
-                              //   style: TextStyle(
-                              //     fontSize: 20,
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),

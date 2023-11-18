@@ -1,9 +1,14 @@
-import 'package:aquanex/actuators.dart';
+import 'package:aquanex/screens/actuators.dart';
 import 'package:flutter/material.dart';
-import 'package:aquanex/home.dart';
+import 'package:aquanex/screens/home.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:aquanex/screens/charts.dart';
+import 'package:aquanex/services/noti.dart';
+
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Notifications().initNotification();
   runApp(const MyApp());
 }
 
@@ -47,6 +52,7 @@ class MyApp extends StatelessWidget {
               children: const [
                 Home(),
                 Actuators(),
+                Charts()
                 ],
             ),)
               ,
