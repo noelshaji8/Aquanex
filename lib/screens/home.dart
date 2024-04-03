@@ -1,8 +1,11 @@
-import 'dart:async';
-import 'package:aquanex/services/noti.dart';
+import 'package:aquanex/screens/actuators.dart';
+import 'package:aquanex/screens/graphs.dart';
+import 'package:aquanex/screens/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:aquanex/services/param_val.dart';
-import 'package:aquanex/services/api_req.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
+
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,287 +15,76 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Future? data;
+  //Future? data;
 
-  var myDouble;
+  var selectedIndex = 1;
+  static const List<Widget> widgetOptions = <Widget>[
+    Settings(),
+    Actuators(),
+    Graphs(),
+  ];
 
-  @override
-  void initState() {
-    super.initState();
-
-    setUpTimedFetch();
-  }
-
-  setUpTimedFetch() {
-    Timer.periodic(Duration(milliseconds: 5000), (timer) async {
-      setState(() {
-        data = ApiReq().fetchValues();
-
-        ApiReq().fetchValues().then((value) async {
-          print("value: $value");
-          print(value.runtimeType);
-
-          myDouble = double.tryParse(await value);
-        });
-
-        print("data: $data");
-      });
-      try {
-        Notifications().showNotification(await myDouble,
-            title: "Temperature", body: "Threshold crossed");
-      } catch (e) {
-        print(e);
-      }
+  void onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
     });
   }
-
-  // notiTrigger(data)  {
-  //   try {
-  //     double doubleData = double.tryParse(data) ?? 0;
-  //     print("double: $doubleData");
-  //     if (doubleData > 28 || doubleData < 22) {
-  //       Notifications()
-  //           .showNotification(title: "Temperature", body: "Threshold crossed");
-  //     }
-  //   } catch (e) {
-  //     print("error is: $e");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Container(
-        width: screenWidth,
-        height: screenHeight,
-        color: Color.fromARGB(0, 147, 197, 114),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 25),
-              child: Text(
-                "Parameters",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            //Water params
-            Padding(
-              padding: EdgeInsets.only(left: 25, right: 25, top: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      children: [
-                        //first box
-                        Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Container(
-                            width: 150,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: Color(0xbb93C572),
-                              border: Border.all(color: Color(0xbb93C572)),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.all(10),
-                            child: const Column(
-                              children: [
-                                Text(
-                                  "NH3",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Text(
-                                  "0.2",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+    //WHOLE THING
 
-                        //second box
-                        Padding(
-                          padding: EdgeInsets.only(right: 0),
-                          child: Container(
-                            width: 150,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: Color(0xbb93C572),
-                              border: Border.all(color: Color(0xbb93C572)),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.all(10),
-                            child: const Column(
-                              children: [
-                                Text(
-                                  "pH",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Text(
-                                  "7.5",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      //third box
-                      Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Container(
-                          width: 150,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Color(0xbb93C572),
-                            border: Border.all(color: Color(0xbb93C572)),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.only(top: 7),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  child: Text(
-                                "Temp",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              )),
-                              SizedBox(
-                                child: ParamVal(
-                                  data: data,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      //fourth box
-                      Padding(
-                        padding: EdgeInsets.only(right: 0),
-                        child: Container(
-                          width: 150,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Color(0xbb93C572),
-                            border: Border.all(color: Color(0xbb93C572)),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: const Column(
-                            children: [
-                              Text(
-                                "DO",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                "5",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-
-            //static info
-
-            const Padding(
-              padding: EdgeInsets.only(top: 60),
-              child: Column(children: [
-                Text(
-                  "Optimum Values",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(top: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "pH:",
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              Text(
-                                "DO:",
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              Text(
-                                "Temp:",
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              Text(
-                                "NH3:",
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ]),
-                        SizedBox(
-                          width: 50,
-                        ),
-                        Column(
-                          children: [
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "6.2 - 7.5",
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  Text(
-                                    "4.0 - 5.0 ppm",
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  Text(
-                                    "22 - 27 °C",
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  Text(
-                                    "0.0 - 0.5 ppm",
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                ])
-                          ],
-                        )
-                      ],
-                    )),
-              ]),
+    return Scaffold(
+      //backgroundColor: Colors.black87,
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              if(selectedIndex==1){
+               SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+              }
+              else{
+                setState(() {
+                  selectedIndex = 1;
+                });
+              }
+            },
+            icon: Icon(Icons.arrow_back_ios_new_rounded)),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.black,
+        shadowColor: null,
+        title: const Text("Aquanex"),
+        centerTitle: true,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.black,
+          unselectedItemColor: Colors.grey[700],
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+                backgroundColor: Colors.black),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+                backgroundColor: Colors.black),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.insert_chart_outlined_sharp),
+              label: 'Analysis',
+              backgroundColor: Colors.black,
             ),
           ],
-        ));
+          type: BottomNavigationBarType.shifting,
+          currentIndex: selectedIndex,
+          selectedItemColor: Colors.white,
+          iconSize: 20,
+          onTap: onItemTapped,
+          elevation: 5),
+
+      body: widgetOptions.elementAt(selectedIndex),
+    );
   }
 }

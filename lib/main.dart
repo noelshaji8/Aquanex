@@ -1,15 +1,31 @@
+// import 'dart:io';
+
 import 'package:aquanex/screens/actuators.dart';
+import 'package:aquanex/screens/graphs.dart';
+import 'package:aquanex/services/fcmnoti.dart';
 import 'package:flutter/material.dart';
 import 'package:aquanex/screens/home.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:aquanex/screens/charts.dart';
-import 'package:aquanex/services/noti.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Notifications().initNotification();
-  runApp(const MyApp());
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyAp7EH7nojC6t4KuoaVf4PWu31HrEkxnU0",
+          appId: '1:701604000334:android:45955661a2b8b6bee1491f',
+          messagingSenderId: '701604000334',
+          projectId: 'aquanex-cbd72'));
+  await FcmNotifications().initNotifications();
+
+  runApp(MaterialApp(
+      title: 'Aquanex',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        useMaterial3: true,
+      ),
+      home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,54 +34,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final pageController = PageController(initialPage: 0);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
-    return MaterialApp(
-      color: Color(0xbb93C572),
-      title: 'Aquanex',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        
-      fontFamily: 'Poppins',
-        useMaterial3: true,
-      ),
-      home: Scaffold(
-        
-        resizeToAvoidBottomInset: true,
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    //Logout function
-                  },
-                  icon: Icon(Icons.logout))
-            ],
-            foregroundColor: Colors.black,
-            backgroundColor: Color(0xbb93C572),
-            shadowColor: null,
-            title: const Text("Aquanex"),
-            centerTitle: true,
-          ),
-          body: Column(children: [
-            SizedBox(height: 550,child: PageView(
-              controller: pageController,
-              children: const [
-                Home(),
-                Actuators(),
-                Charts()
-                ],
-            ),)
-              ,
-            SmoothPageIndicator(controller: pageController, count: 2,
-            effect: SlideEffect(
-              
-              activeDotColor: Color.fromARGB(255, 112, 112, 112)
-            ),),
-
-
-          ],)
-            
-          ));
-    
+    return Home();
   }
 }

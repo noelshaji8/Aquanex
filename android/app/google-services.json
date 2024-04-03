@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "701604000334",
+    "project_id": "aquanex-cbd72",
+    "storage_bucket": "aquanex-cbd72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701604000334:android:45955661a2b8b6bee1491f",
+        "android_client_info": {
+          "package_name": "com.example.aquanex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp7EH7nojC6t4KuoaVf4PWu31HrEkxnU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
