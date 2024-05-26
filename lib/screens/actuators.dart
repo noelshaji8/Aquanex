@@ -109,7 +109,7 @@ class _ActuatorsState extends State<Actuators> {
                   duration: const Duration(seconds: 1),
                   curve: Curves.elasticOut,
                   radius: screenWidth * 0.25,
-                  value: phdata <= 2 ? ph : phdata,
+                  value: 7,
                   axis: const GaugeAxis(
                     min: 1,
                     max: 14,

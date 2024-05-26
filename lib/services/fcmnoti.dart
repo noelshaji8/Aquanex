@@ -12,6 +12,8 @@ class FcmNotifications {
   Future<void> initNotifications() async {
     await _fcm.requestPermission();
     final fcmToken = await _fcm.getToken();
+    // print("token");
+    // print(fcmToken);
     FirebaseMessaging.onBackgroundMessage((handleBackgroundMessage));
   }
 }
